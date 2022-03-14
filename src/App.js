@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Title from "./components/Title";
 import ImageCard from "./components/ImageCard";
@@ -104,35 +105,56 @@ function App() {
         next={fetchImages}
         hasMore={hasMore}
       >
-        <Container className={classes.container}>
-          <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-          >
-            {!isLoading && images.length === 0 && (
-              <Typography className={classes.typo} variant="h6">
-                No images found!
-              </Typography>
-            )}
+        <AnimatePresence exitBeforeEnter>
+          <Container className={classes.container}>
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              {!isLoading && images.length === 0 && (
+                <Typography className={classes.typo} variant="h6">
+                  No images found!
+                </Typography>
+              )}
 
-            {isLoading ? (
-              <Typography className={classes.typo} variant="h6">
-                <CircularProgress /> Loading..{" "}
-              </Typography>
-            ) : (
-              <Grid container spacing={3}>
-                {images.map((image) => (
-                  <Grid key={image.id} item xs={12} sm={6} md={6} lg={4}>
-                    <ImageCard image={image} />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </Grid>
-        </Container>
+              {isLoading ? (
+                <Typography className={classes.typo} variant="h6">
+                  <CircularProgress /> Loading..{" "}
+                </Typography>
+              ) : (
+                <Grid container spacing={3}>
+                  {images.map((image, i) => (
+                    <Grid
+                      component={motion.div}
+                      initial={{ opacity: 0 }}
+                      // animate={{ opacity: 1 }}
+                      whileInView={{
+                        opacity: 1,
+                      }}
+                      viewport={{ once: true }}
+                      transition={{
+                        ease: "easeInOut",
+                        duration: 0.5,
+                        delay: i * 0.07,
+                      }}
+                      key={image.id}
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={4}
+                    >
+                      <ImageCard image={image} />
+                    </Grid>
+                  ))}
+                </Grid>
+              )}
+            </Grid>
+          </Container>
+        </AnimatePresence>
       </InfiniteScroll>
     </ThemeProvider>
   );

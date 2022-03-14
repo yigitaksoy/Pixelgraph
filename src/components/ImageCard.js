@@ -17,7 +17,7 @@ function ImageCard({ image }) {
 
   return (
     <div>
-      <Card className={classes.card} elevation={5}>
+      <Card exit="exit" className={classes.card} elevation={5}>
         <CardMedia
           component="img"
           alt=""

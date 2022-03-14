@@ -130,7 +130,6 @@ function App() {
                     <Grid
                       component={motion.div}
                       initial={{ opacity: 0 }}
-                      // animate={{ opacity: 1 }}
                       whileInView={{
                         opacity: 1,
                       }}

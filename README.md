@@ -1,5 +1,5 @@
 <h2 align="center">
-Pixelgrapgh
+Pixelgraph
 </h2>
 
 <h3 align="center">
